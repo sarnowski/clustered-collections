@@ -8,8 +8,16 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <files>
         <file>
+            <source>target/test-classes/com/github/sarnowski/collections/demo/AbstractClusteredDemo.class</source>
+            <destName>com/github/sarnowski/collections/demo/AbstractClusteredDemo.class</destName>
+        </file>
+        <file>
             <source>target/test-classes/com/github/sarnowski/collections/demo/ReplicatedClusteredListDemo.class</source>
             <destName>com/github/sarnowski/collections/demo/ReplicatedClusteredListDemo.class</destName>
+        </file>
+        <file>
+            <source>target/test-classes/com/github/sarnowski/collections/demo/ReplicatedClusteredSetDemo.class</source>
+            <destName>com/github/sarnowski/collections/demo/ReplicatedClusteredSetDemo.class</destName>
         </file>
         <file>
             <source>src/test/resources/logback.xml</source>

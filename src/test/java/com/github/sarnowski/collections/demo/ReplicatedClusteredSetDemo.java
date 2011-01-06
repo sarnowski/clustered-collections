@@ -17,7 +17,7 @@ package com.github.sarnowski.collections.demo;
 
 import com.github.sarnowski.collections.ClusteredCollection;
 import com.github.sarnowski.collections.ClusteredCollections;
-import com.github.sarnowski.collections.ClusteredList;
+import com.github.sarnowski.collections.ClusteredSet;
 import org.jgroups.ChannelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,25 +25,25 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-public final class ReplicatedClusteredListDemo extends AbstractClusteredDemo {
-    private static final Logger LOG = LoggerFactory.getLogger(ReplicatedClusteredListDemo.class);
+public final class ReplicatedClusteredSetDemo extends AbstractClusteredDemo {
+    private static final Logger LOG = LoggerFactory.getLogger(ReplicatedClusteredSetDemo.class);
 
-    public ReplicatedClusteredListDemo(ClusteredCollection<String> clusteredCollection) {
+    public ReplicatedClusteredSetDemo(ClusteredCollection<String> clusteredCollection) {
         super(clusteredCollection);
     }
 
     public static void main(String[] arguments) {
-        System.out.println("ReplicatedClusteredList Demo");
+        System.out.println("ReplicatedClusteredSet Demo");
         System.out.println();
 
-        final ClusteredList<String> clusteredList;
+        final ClusteredSet<String> clusteredSet;
         try {
-            clusteredList = ClusteredCollections.newReplicatedClusteredList("ReplicatedClusteredListDemo");
+            clusteredSet = ClusteredCollections.newReplicatedClusteredSet("ReplicatedClusteredSetDemo");
         } catch (ChannelException e) {
             throw new IllegalStateException(e);
         }
 
-        ReplicatedClusteredListDemo demo = new ReplicatedClusteredListDemo(clusteredList);
+        ReplicatedClusteredSetDemo demo = new ReplicatedClusteredSetDemo(clusteredSet);
         demo.run();
     }
 }

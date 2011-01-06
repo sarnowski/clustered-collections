@@ -62,4 +62,33 @@ public final class ClusteredCollections {
     public static <T> ClusteredList<T> newReplicatedClusteredList(String clusterName, ProtocolStackConfigurator configurator) throws ChannelException {
         return new ReplicatedClusteredList<T>(clusterName, new JChannel(configurator));
     }
+
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, Channel channel) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, channel);
+    }
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, new JChannel());
+    }
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, File properties) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, new JChannel(properties));
+    }
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, URL properties) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, new JChannel(properties));
+    }
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, Element properties) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, new JChannel(properties));
+    }
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, String properties) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, new JChannel(properties));
+    }
+
+    public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, ProtocolStackConfigurator configurator) throws ChannelException {
+        return new ReplicatedClusteredSet<T>(clusterName, new JChannel(configurator));
+    }
 }

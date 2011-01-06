@@ -8,6 +8,10 @@
     <artifactId>clustered-collections</artifactId>
     <version>0.1-SNAPSHOT</version>
 
+    <properties>
+        <maven.skip.tests>true</maven.skip.tests>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -57,6 +61,15 @@
                         <descriptor>demo-assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>demo-jar</id>
+                        <goals>
+                            <goal>assembly</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

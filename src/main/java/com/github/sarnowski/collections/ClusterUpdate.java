@@ -18,7 +18,11 @@ package com.github.sarnowski.collections;
 import java.io.Serializable;
 
 /**
+ * The transport object of the {@link ClusterManager} within the cluster.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
+ * @see ClusterManager
  */
 final class ClusterUpdate<A,P> implements Serializable {
     private final A actionIdentifier;

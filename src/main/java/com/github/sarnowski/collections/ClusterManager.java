@@ -28,7 +28,15 @@ import org.jgroups.logging.LogFactory;
 import org.jgroups.util.Util;
 
 /**
+ * The ClusterManager encapsulates the JGroups handling and provides easy
+ * cluster handling through the {@link ClusterManaged} interface.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
+ * @param <A> serializable action identifier
+ * @param <P> serializable payload
+ * @param <S> serializable state
+ * @see ClusterManaged
  */
 final class ClusterManager<A,P,S> implements Receiver {
     private final Log LOG = LogFactory.getLog(ClusterManager.class);
@@ -49,10 +57,21 @@ final class ClusterManager<A,P,S> implements Receiver {
         channel.getState(null, 5000);
     }
 
+    /**
+     * Provides the underlying channel.
+     *
+     * @return the underlying channel
+     */
     public Channel getChannel() {
         return channel;
     }
 
+    /**
+     * Sends an update to the cluster members.
+     *
+     * @param action the update action
+     * @param payload the payload
+     */
     public void sendUpdate(A action, P payload) {
         if (LOG.isDebugEnabled())
             LOG.debug("sendUpdate(" + action + ", " + payload + ")");

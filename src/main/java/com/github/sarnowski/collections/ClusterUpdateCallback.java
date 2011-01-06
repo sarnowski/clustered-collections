@@ -16,10 +16,17 @@
 package com.github.sarnowski.collections;
 
 /**
+ * A callback which will be called on cluster updates.
+ * 
  * @author Tobias Sarnowski
+ * @since 1.0
+ * @see Clustered
  */
 public interface ClusterUpdateCallback {
 
+    /**
+     * A cluster update occured.
+     */
     void clusterUpdated();
 
 }

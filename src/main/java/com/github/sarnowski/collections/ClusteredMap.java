@@ -18,7 +18,10 @@ package com.github.sarnowski.collections;
 import java.util.Map;
 
 /**
+ * Adds the {@link Clustered} interface to {@link Map}.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
  */
 public interface ClusteredMap<K,V> extends Clustered, Map<K,V> {
 

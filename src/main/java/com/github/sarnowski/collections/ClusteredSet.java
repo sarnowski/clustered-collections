@@ -18,7 +18,10 @@ package com.github.sarnowski.collections;
 import java.util.Set;
 
 /**
+ * Adds the {@link Clustered} interface to {@link Set}.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
  */
 public interface ClusteredSet<T> extends ClusteredCollection<T>, Set<T> {
 

@@ -18,7 +18,10 @@ package com.github.sarnowski.collections;
 import java.util.List;
 
 /**
+ * Adds the {@link Clustered} interface to {@link List}.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
  */
 public interface ClusteredList<T> extends ClusteredCollection<T>, List<T> {
 

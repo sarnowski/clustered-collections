@@ -26,7 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Implements a clustered {@link List}.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
  */
 final class ReplicatedClusteredList<T> extends AbstractList<T> implements
         ClusteredList<T>,

@@ -25,7 +25,24 @@ import java.io.File;
 import java.net.URL;
 
 /**
+ * This factory is the entry point for working with a clustered collection
+ * instance.
+ * 
+ * All methods are overloaded with every possible type of configuration of
+ * {@link org.jgroups.JChannel}. Fore more informations about configuring
+ * the cluster look at the
+ * <a href="http://jgroups.org/manual/html/">JGroups Documentation</a>. 
+ * 
+ * <p>
+ * <strong>Example:</strong>
+ * <pre>
+ * List&lt;String&gt; myList = ClusteredCollections.newReplicatedClusteredList("MyClusterList");
+ * </pre>
+ * </p>
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
+ * @see org.jgroups.JChannel
  */
 public final class ClusteredCollections {
     private ClusteredCollections() {

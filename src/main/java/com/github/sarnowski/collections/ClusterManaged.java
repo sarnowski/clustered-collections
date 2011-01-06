@@ -16,14 +16,39 @@
 package com.github.sarnowski.collections;
 
 /**
+ * Defines a high level abstraction for JGroups events. A {@link ClusterManager}
+ * will handle the instance.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
+ * @see ClusterManager
+ * @param <A> a serializable action identifier 
+ * @param <P> a serializable payload container
+ * @param <S> a serializable state transfer container
  */
 interface ClusterManaged<A,P,S> {
 
+    /**
+     * Will be triggered as soon as an update from the cluster receives.
+     *
+     * @param action the update action
+     * @param payload the update payload
+     */
     void handleUpdate(A action, P payload);
 
+    /**
+     * Will be triggered as soon as a new state from the cluster receives.
+     *
+     * @param state the new state
+     */
     void updateClusterState(S state);
 
+    /**
+     * Instance has to provide the current state because another cluster member
+     * asked for it.
+     *
+     * @return the current state
+     */
     S provideClusterState();
 
 }

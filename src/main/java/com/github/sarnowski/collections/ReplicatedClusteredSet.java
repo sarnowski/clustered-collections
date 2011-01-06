@@ -26,7 +26,10 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * Implements a clustered {@link Set}.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
  */
 final class ReplicatedClusteredSet<T> extends AbstractSet<T> implements
         ClusteredSet<T>,

@@ -29,7 +29,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Implements a clustered {@link Map}.
+ *
  * @author Tobias Sarnowski
+ * @since 1.0
  */
 final class ReplicatedClusteredMap<K,V> extends AbstractMap<K,V> implements
         ClusteredMap<K,V>,

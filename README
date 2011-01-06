@@ -1,0 +1,22 @@
+Clustered Collections
+=============================================================================
+
+The clustered-collections project aims to provide clusterable implementations
+of the java collections framework. It has a small footprint due to a very
+few dependencies.
+
+It is not a replacement for caches! It lacks any eviction strategy nor does
+it support persistence.
+
+
+There are similar projects out there, e.g. KeptCollections(1). Target of this
+project is to minimize dependencies and support a non-single-point-of-failure
+architecture.
+
+
+License
+=============================================================================
+
+Copyright (c) 2011 Tobias Sarnowski
+
+See the LICENSE file.

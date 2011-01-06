@@ -4,7 +4,7 @@
 
     <groupId>com.github.sarnowski</groupId>
     <artifactId>clustered-collections</artifactId>
-    <version>1.0.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <name>Clustered Collections</name>
     <description>Clusterable implementation of the java collections framework.</description>

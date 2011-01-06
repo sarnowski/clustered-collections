@@ -14,6 +14,10 @@ project is to minimize dependencies and support a non-single-point-of-failure
 architecture.
 
 
+  https://github.com/sarnowski/clustered-collections
+
+
+
 Maven
 =============================================================================
 

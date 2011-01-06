@@ -29,7 +29,7 @@ Maven
 
 <repository>
     <id>sarnowski.github.com</id>
-    <url>http://sarnowski.github.com/repository/</url>
+    <url>http://sarnowski.github.com/repository</url>
 </repository>
 
 

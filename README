@@ -20,8 +20,13 @@ Maven
 <dependency>
     <groupId>com.github.sarnowski</groupId>
     <artifactId>clustered-collections</artifactId>
-    <version>[0.1-SNAPSHOT,2)</version>
+    <version>[1.0,2)</version>
 </dependency>
+
+<repository>
+    <id>sarnowski.github.com</id>
+    <url>http://sarnowski.github.com/repository/</url>
+</repository>
 
 
 Usage

@@ -23,15 +23,15 @@ import org.jgroups.ChannelNotConnectedException;
 import org.jgroups.Message;
 import org.jgroups.Receiver;
 import org.jgroups.View;
+import org.jgroups.logging.Log;
+import org.jgroups.logging.LogFactory;
 import org.jgroups.util.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
 final class ClusterManager<A,P,S> implements Receiver {
-    private static final Logger LOG = LoggerFactory.getLogger(ClusterManager.class);
+    private final Log LOG = LogFactory.getLog(ClusterManager.class);
 
     private final Channel channel;
     private final ClusterManaged<A,P,S> managed;
@@ -43,7 +43,8 @@ final class ClusterManager<A,P,S> implements Receiver {
         channel.setReceiver(this);
         channel.setOpt(Channel.LOCAL, false);
 
-        LOG.trace("connect()");
+        if (LOG.isTraceEnabled())
+            LOG.trace("connect()");
         channel.connect(clusterName);
         channel.getState(null, 5000);
     }
@@ -52,9 +53,10 @@ final class ClusterManager<A,P,S> implements Receiver {
         return channel;
     }
 
-    public void sendUpdate(A actionIdentifier, P payload) {
-        LOG.debug("sendUpdate({}, {})", actionIdentifier, payload);
-        final ClusterUpdate<A,P> update = new ClusterUpdate<A,P>(actionIdentifier, payload);
+    public void sendUpdate(A action, P payload) {
+        if (LOG.isDebugEnabled())
+            LOG.debug("sendUpdate(" + action + ", " + payload + ")");
+        final ClusterUpdate<A,P> update = new ClusterUpdate<A,P>(action, payload);
         final byte[] buffer;
         try {
             buffer = Util.objectToByteBuffer(update);
@@ -72,22 +74,26 @@ final class ClusterManager<A,P,S> implements Receiver {
 
     @Override
     public void viewAccepted(View new_view) {
-        LOG.trace("viewAccepted({})", new_view);
+        if (LOG.isTraceEnabled())
+            LOG.trace("viewAccepted(" + new_view + ")");
     }
 
     @Override
     public void suspect(Address suspected_mbr) {
-        LOG.trace("suspect({})", suspected_mbr);
+        if (LOG.isTraceEnabled())
+            LOG.trace("suspect(" + suspected_mbr + ")");
     }
 
     @Override
     public void block() {
-        LOG.trace("block()");
+        if (LOG.isTraceEnabled())
+            LOG.trace("block()");
     }
 
     @Override
     public void receive(Message msg) {
-        LOG.trace("receive({})", msg);
+        if (LOG.isTraceEnabled())
+            LOG.trace("receive(" + msg + ")");
 
         final ClusterUpdate<A,P> update;
         try {
@@ -101,7 +107,8 @@ final class ClusterManager<A,P,S> implements Receiver {
 
     @Override
     public byte[] getState() {
-        LOG.trace("getState()");
+        if (LOG.isTraceEnabled())
+            LOG.trace("getState()");
         try {
             return Util.objectToByteBuffer(managed.provideClusterState());
         } catch (Exception e) {
@@ -111,7 +118,8 @@ final class ClusterManager<A,P,S> implements Receiver {
 
     @Override
     public void setState(byte[] state) {
-        LOG.trace("setState(...)");
+        if (LOG.isTraceEnabled())
+            LOG.trace("setState(...)");
         try {
             managed.updateClusterState((S)Util.objectFromByteBuffer(state));
         } catch (Exception e) {

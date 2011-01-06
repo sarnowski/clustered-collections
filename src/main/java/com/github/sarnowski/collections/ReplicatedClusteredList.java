@@ -17,8 +17,8 @@ package com.github.sarnowski.collections;
 
 import org.jgroups.Channel;
 import org.jgroups.ChannelException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jgroups.logging.Log;
+import org.jgroups.logging.LogFactory;
 
 import java.io.Serializable;
 import java.util.AbstractList;
@@ -32,7 +32,7 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
         ClusteredList<T>,
         ClusterManaged<ReplicatedClusteredList.ListActions,ReplicatedClusteredList.ListPayload<T>,List<T>> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ReplicatedClusteredList.class);
+    private final Log LOG = LogFactory.getLog(ReplicatedClusteredList.class);
 
     private List<T> localList = new ArrayList<T>();
 
@@ -54,9 +54,10 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
     }
 
     @Override
-    public void handleUpdate(ListActions actionIdentifier, ListPayload<T> payload) {
-        LOG.trace("handleUpdate({}, {})", actionIdentifier, payload);
-        switch (actionIdentifier) {
+    public void handleUpdate(ListActions action, ListPayload<T> payload) {
+        if (LOG.isTraceEnabled())
+            LOG.trace("handleUpdate(" + action + ", " + payload + ")");
+        switch (action) {
             case SET:
                 localList.set(payload.getIndex(),payload.getElement());
                 break;

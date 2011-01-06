@@ -8,16 +8,37 @@
     <artifactId>clustered-collections</artifactId>
     <version>0.1-SNAPSHOT</version>
 
+    <name>Clustered Collections</name>
+    <description>Clusterable implementation of the java collections framework.</description>
+
+    <inceptionYear>2011</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>sarnowski</id>
+            <name>Tobias Sarnowski</name>
+            <email>sarnowski@new-thoughts.org</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/sarnowski/clustered-collections</url>
+        <connection>scm:git:git://github.com/sarnowski/clustered-collections.git</connection>
+        <developerConnection>scm:git:git@github.com:sarnowski/clustered-collections.git</developerConnection>
+    </scm>
+
     <properties>
-        <maven.skip.tests>true</maven.skip.tests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.1</version>
-        </dependency>
         <dependency>
             <groupId>jgroups</groupId>
             <artifactId>jgroups</artifactId>
@@ -61,18 +82,17 @@
                         <descriptor>demo-assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>demo-jar</id>
-                        <goals>
-                            <goal>assembly</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>localgithub</id>
+            <name>Local github.com release folder</name>
+            <url>file://${user.home}/github/repository</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>

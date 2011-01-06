@@ -19,8 +19,6 @@ import org.jgroups.Channel;
 import org.jgroups.ChannelException;
 import org.jgroups.JChannel;
 import org.jgroups.conf.ProtocolStackConfigurator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -30,8 +28,6 @@ import java.net.URL;
  * @author Tobias Sarnowski
  */
 public final class ClusteredCollections {
-    private static final Logger LOG = LoggerFactory.getLogger(ClusteredCollections.class);
-
     private ClusteredCollections() {
     }
 

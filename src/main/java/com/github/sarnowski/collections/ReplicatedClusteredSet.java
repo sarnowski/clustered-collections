@@ -17,8 +17,8 @@ package com.github.sarnowski.collections;
 
 import org.jgroups.Channel;
 import org.jgroups.ChannelException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jgroups.logging.Log;
+import org.jgroups.logging.LogFactory;
 
 import java.io.Serializable;
 import java.util.AbstractSet;
@@ -33,7 +33,7 @@ final class ReplicatedClusteredSet<T> extends AbstractSet<T> implements
         ClusteredSet<T>,
         ClusterManaged<ReplicatedClusteredSet.SetActions,T,Set<T>> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ReplicatedClusteredSet.class);
+    private final Log LOG = LogFactory.getLog(ReplicatedClusteredList.class);
 
     private Set<T> localSet = new HashSet<T>();
 
@@ -55,9 +55,10 @@ final class ReplicatedClusteredSet<T> extends AbstractSet<T> implements
     }
 
     @Override
-    public void handleUpdate(ReplicatedClusteredSet.SetActions actionIdentifier, T payload) {
-        LOG.trace("handleUpdate({}, {})", actionIdentifier, payload);
-        switch (actionIdentifier) {
+    public void handleUpdate(ReplicatedClusteredSet.SetActions action, T payload) {
+        if (LOG.isTraceEnabled())
+            LOG.trace("handleUpdate(" + action + ", " + payload + ")");
+        switch (action) {
             case ADD:
                 localSet.add(payload);
                 break;

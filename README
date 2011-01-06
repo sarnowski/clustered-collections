@@ -14,6 +14,67 @@ project is to minimize dependencies and support a non-single-point-of-failure
 architecture.
 
 
+Maven
+=============================================================================
+
+<dependency>
+    <groupId>com.github.sarnowski</groupId>
+    <artifactId>clustered-collections</artifactId>
+    <version>[0.1-SNAPSHOT,2)</version>
+</dependency>
+
+
+Usage
+=============================================================================
+
+import com.github.sarnowski.collections.*;
+
+
+List<String> words =
+        ClusteredCollections.newReplicatedClusteredList("MyClusteredList");
+
+Set<String> words =
+        ClusteredCollections.newReplicatedClusteredSet("MyClusteredSet");
+
+Map<String,String> texts =
+        ClusteredCollections.newReplicatedClusteredMap("MyClusteredMap");
+
+
+Demo
+=============================================================================
+
+You can start a demo for the collections with the *-demo.jar file.
+
+  $ java -Djgroups.bind_addr=192.168.0.5 \
+         -cp clustered-collections-*-demo.jar \
+         com.github.sarnowski.collections.demo.ReplicatedClusteredListDemo
+
+Use your local network address.
+
+
+Configuration
+=============================================================================
+
+For more informations about configuring the cluster setup, please have a look
+at http://jgroups.org/. This project uses JGroups as it's underlying network
+handler.
+
+
+Compiling
+=============================================================================
+
+For compiling the source code by yourself, use Maven and just enter the
+following command in the project directory:
+
+  $ mvn install
+
+For building the demo jar, enter the following command:
+
+  $ mvn assembly:assembly
+
+The demo jar will be created in the folder "target".
+
+
 License
 =============================================================================
 

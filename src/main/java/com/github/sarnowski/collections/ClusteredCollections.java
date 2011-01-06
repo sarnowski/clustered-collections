@@ -87,4 +87,33 @@ public final class ClusteredCollections {
     public static <T> ClusteredSet<T> newReplicatedClusteredSet(String clusterName, ProtocolStackConfigurator configurator) throws ChannelException {
         return new ReplicatedClusteredSet<T>(clusterName, new JChannel(configurator));
     }
+
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName, Channel channel) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, channel);
+    }
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, new JChannel());
+    }
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName, File properties) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, new JChannel(properties));
+    }
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName, URL properties) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, new JChannel(properties));
+    }
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName, Element properties) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, new JChannel(properties));
+    }
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName, String properties) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, new JChannel(properties));
+    }
+
+    public static <K,V> ClusteredMap<K,V> newReplicatedClusteredMap(String clusterName, ProtocolStackConfigurator configurator) throws ChannelException {
+        return new ReplicatedClusteredMap<K,V>(clusterName, new JChannel(configurator));
+    }
 }

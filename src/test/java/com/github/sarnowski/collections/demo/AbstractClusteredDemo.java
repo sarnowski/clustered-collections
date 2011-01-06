@@ -16,12 +16,14 @@
 package com.github.sarnowski.collections.demo;
 
 import com.github.sarnowski.collections.ClusterUpdateCallback;
-import com.github.sarnowski.collections.ClusteredCollection;
+import com.github.sarnowski.collections.Clustered;
 import org.jgroups.Address;
 import org.jgroups.View;
 import org.jgroups.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * @author Tobias Sarnowski
@@ -29,11 +31,11 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractClusteredDemo implements ClusterUpdateCallback, Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractClusteredDemo.class);
 
-    private final ClusteredCollection<String> clusteredCollection;
+    private final Clustered clusteredObject;
 
-    public AbstractClusteredDemo(ClusteredCollection<String> clusteredCollection) {
-        this.clusteredCollection = clusteredCollection;
-        clusteredCollection.setUpdateCallback(this);
+    public AbstractClusteredDemo(Clustered clusteredObject) {
+        this.clusteredObject = clusteredObject;
+        clusteredObject.setUpdateCallback(this);
     }
 
     @Override
@@ -57,15 +59,15 @@ public abstract class AbstractClusteredDemo implements ClusterUpdateCallback, Ru
             }
 
             if ("show".equals(tokens[0].toLowerCase())) {
-                printCollection();
+                printObjects();
                 continue;
             }
 
             if ("cluster".equals(tokens[0].toLowerCase())) {
-                View view = clusteredCollection.getChannel().getView();
+                View view = clusteredObject.getChannel().getView();
                 System.out.println("Cluster informations");
                 System.out.println(" ID:  " + view.getViewId());
-                System.out.println(" Local:  " + clusteredCollection.getChannel().getAddress());
+                System.out.println(" Local:  " + clusteredObject.getChannel().getAddress());
                 System.out.println(" Creator:  " + view.getCreator());
                 System.out.println(" Member:");
                 for (Address member: view.getMembers()) {
@@ -74,20 +76,18 @@ public abstract class AbstractClusteredDemo implements ClusterUpdateCallback, Ru
                 continue;
             }
 
-            if ("clear".equals(tokens[0].toLowerCase())) {
-                clusteredCollection.clear();
-                continue;
+            boolean foundCommand = false;
+            for (ClusteredDemoCommand cmd: getCommands()) {
+                if (tokens[0].equals(cmd.getCommand())) {
+                    try {
+                        cmd.getCallback().callCommand(cmd, tokens);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    foundCommand = true;
+                }
             }
-
-            if ("add".equals(tokens[0].toLowerCase())) {
-                clusteredCollection.add(tokens[1]);
-                continue;
-            }
-
-            if ("remove".equals(tokens[0].toLowerCase()) && tokens.length == 2) {
-                clusteredCollection.remove(tokens[1]);
-                continue;
-            }
+            if (foundCommand) continue;
 
             if ("quit".equals(tokens[0].toLowerCase())) {
                 System.exit(0);
@@ -98,12 +98,14 @@ public abstract class AbstractClusteredDemo implements ClusterUpdateCallback, Ru
             }
             System.out.println("Available Commands:");
             System.out.println();
-            System.out.println("  list                 - print the content of the clustered list");
-            System.out.println("  cluster              - print the members of the cluter");
+            System.out.println("  show                 - prints an overview of the clustered object");
+            System.out.println("  cluster              - print the members of the cluster");
             System.out.println();
-            System.out.println("  add <word>           - add a word to the list");
-            System.out.println("  remove <word>        - remove a word from the list");
-            System.out.println("  clear                - remove all list entries");
+            for (ClusteredDemoCommand cmd: getCommands()) {
+                System.out.print("  " + cmd.getUsage());
+                int n; for (n = cmd.getUsage().length(); n < 20; n++) { System.out.print(" "); }
+                System.out.println(" - " + cmd.getHelp());
+            }
             System.out.println();
             System.out.println("  help                 - display this command list");
             System.out.println("  quit                 - exit the program");
@@ -115,15 +117,10 @@ public abstract class AbstractClusteredDemo implements ClusterUpdateCallback, Ru
     public void clusterUpdated() {
         System.out.println();
         System.out.println("Cluster update received:");
-        printCollection();
+        printObjects();
     }
 
-    public void printCollection() {
-        int index = 0;
-        for (String string: clusteredCollection) {
-            System.out.println(" " + index + ": " + string);
-            index++;
-        }
-        System.out.println("Collection size: " + clusteredCollection.size());
-    }
+    public abstract void printObjects();
+
+    public abstract List<ClusteredDemoCommand> getCommands();
 }

@@ -124,7 +124,7 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
     @Override
     public String toString() {
         return "ReplicatedClusteredList{" +
-                "list=" + localList +
+                "listSize=" + localList.size() +
                 ", cluster=" + clusterManager +
                 '}';
     }

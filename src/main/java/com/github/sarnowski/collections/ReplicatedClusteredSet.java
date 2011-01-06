@@ -20,7 +20,6 @@ import org.jgroups.ChannelException;
 import org.jgroups.logging.Log;
 import org.jgroups.logging.LogFactory;
 
-import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,7 +32,7 @@ final class ReplicatedClusteredSet<T> extends AbstractSet<T> implements
         ClusteredSet<T>,
         ClusterManaged<ReplicatedClusteredSet.SetActions,T,Set<T>> {
 
-    private final Log LOG = LogFactory.getLog(ReplicatedClusteredList.class);
+    private final Log LOG = LogFactory.getLog(ReplicatedClusteredMap.class);
 
     private Set<T> localSet = new HashSet<T>();
 
@@ -122,7 +121,7 @@ final class ReplicatedClusteredSet<T> extends AbstractSet<T> implements
     @Override
     public String toString() {
         return "ReplicatedClusteredSet{" +
-                "set=" + localSet +
+                "setSize=" + localSet.size() +
                 ", cluster=" + clusterManager +
                 '}';
     }
@@ -130,31 +129,5 @@ final class ReplicatedClusteredSet<T> extends AbstractSet<T> implements
     public static enum SetActions {
         ADD,
         REMOVE
-    }
-
-    public static class SetPayload<T> implements Serializable {
-        private final int index;
-        private final T element;
-
-        public SetPayload(int index, T element) {
-            this.index = index;
-            this.element = element;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public T getElement() {
-            return element;
-        }
-
-        @Override
-        public String toString() {
-            return "SetPayload{" +
-                    "index=" + index +
-                    ", element=" + element +
-                    '}';
-        }
     }
 }

@@ -16,75 +16,75 @@
 package com.github.sarnowski.collections.demo;
 
 import com.github.sarnowski.collections.ClusteredCollections;
-import com.github.sarnowski.collections.ClusteredSet;
+import com.github.sarnowski.collections.ClusteredMap;
 import org.jgroups.ChannelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * @author Tobias Sarnowski
  */
-public final class ReplicatedClusteredSetDemo extends AbstractClusteredDemo implements ClusteredDemoCommandCallback {
-    private static final Logger LOG = LoggerFactory.getLogger(ReplicatedClusteredSetDemo.class);
+public final class ReplicatedClusteredMapDemo extends AbstractClusteredDemo implements ClusteredDemoCommandCallback {
+    private static final Logger LOG = LoggerFactory.getLogger(ReplicatedClusteredMapDemo.class);
 
-    private Set<String> words;
+    private Map<String,String> map;
 
     public static void main(String[] arguments) {
-        System.out.println("ReplicatedClusteredSet Demo");
+        System.out.println("ReplicatedClusteredMap Demo");
         System.out.println();
 
-        final ClusteredSet<String> clusteredSet;
+        final ClusteredMap<String,String> clusteredMap;
         try {
-            clusteredSet = ClusteredCollections.newReplicatedClusteredSet("ReplicatedClusteredSetDemo");
+            clusteredMap = ClusteredCollections.newReplicatedClusteredMap("ReplicatedClusteredMapDemo");
         } catch (ChannelException e) {
             throw new IllegalStateException(e);
         }
 
-        ReplicatedClusteredSetDemo demo = new ReplicatedClusteredSetDemo(clusteredSet);
+        ReplicatedClusteredMapDemo demo = new ReplicatedClusteredMapDemo(clusteredMap);
         demo.run();
     }
 
-    public ReplicatedClusteredSetDemo(ClusteredSet<String> clusteredSet) {
-        super(clusteredSet);
-        words = clusteredSet;
+    public ReplicatedClusteredMapDemo(ClusteredMap<String,String> clusteredMap) {
+        super(clusteredMap);
+        map = clusteredMap;
     }
 
     @Override
     public void printObjects() {
         int counter = 0;
-        for (String word: words) {
-            System.out.println(" " + counter + ": " + word);
+        for (Map.Entry<String,String> entry: map.entrySet()) {
+            System.out.println(" " + counter + ": " + entry.getKey() + " = " + entry.getValue());
         }
-        System.out.println("Size: " + words.size());
+        System.out.println("Size: " + map.size());
     }
 
     @Override
     public List<ClusteredDemoCommand> getCommands() {
         List<ClusteredDemoCommand> commands = new ArrayList<ClusteredDemoCommand>();
-        commands.add(new ClusteredDemoCommand.Def("add", "add <word>", "adds a word to the set", this));
-        commands.add(new ClusteredDemoCommand.Def("remove", "remove <word>", "removes a word from the list", this));
+        commands.add(new ClusteredDemoCommand.Def("put", "put <key> <value>", "adds an entry in the map", this));
+        commands.add(new ClusteredDemoCommand.Def("remove", "remove <key>", "removes an entry from the map", this));
         commands.add(new ClusteredDemoCommand.Def("clear", "clear", "clears the map", this));
         return commands;
     }
 
     @Override
     public void callCommand(ClusteredDemoCommand cmd, String[] tokens) {
-        if ("add".equals(cmd.getCommand())) {
-            words.add(tokens[1]);
+        if ("put".equals(cmd.getCommand())) {
+            map.put(tokens[1], tokens[2]);
             return;
         }
 
         if ("remove".equals(cmd.getCommand())) {
-            words.remove(tokens[1]);
+            map.remove(tokens[1]);
             return;
         }
 
         if ("clear".equals(cmd.getCommand())) {
-            words.clear();
+            map.clear();
             return;
         }
     }

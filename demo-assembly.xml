@@ -12,8 +12,24 @@
             <destName>com/github/sarnowski/collections/demo/AbstractClusteredDemo.class</destName>
         </file>
         <file>
+            <source>target/test-classes/com/github/sarnowski/collections/demo/ClusteredDemoCommand.class</source>
+            <destName>com/github/sarnowski/collections/demo/ClusteredDemoCommand.class</destName>
+        </file>
+        <file>
+            <source>target/test-classes/com/github/sarnowski/collections/demo/ClusteredDemoCommand$Def.class</source>
+            <destName>com/github/sarnowski/collections/demo/ClusteredDemoCommand$Def.class</destName>
+        </file>
+        <file>
+            <source>target/test-classes/com/github/sarnowski/collections/demo/ClusteredDemoCommandCallback.class</source>
+            <destName>com/github/sarnowski/collections/demo/ClusteredDemoCommandCallback.class</destName>
+        </file>
+        <file>
             <source>target/test-classes/com/github/sarnowski/collections/demo/ReplicatedClusteredListDemo.class</source>
             <destName>com/github/sarnowski/collections/demo/ReplicatedClusteredListDemo.class</destName>
+        </file>
+        <file>
+            <source>target/test-classes/com/github/sarnowski/collections/demo/ReplicatedClusteredMapDemo.class</source>
+            <destName>com/github/sarnowski/collections/demo/ReplicatedClusteredMapDemo.class</destName>
         </file>
         <file>
             <source>target/test-classes/com/github/sarnowski/collections/demo/ReplicatedClusteredSetDemo.class</source>

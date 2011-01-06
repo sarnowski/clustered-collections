@@ -15,11 +15,11 @@
  */
 package com.github.sarnowski.collections;
 
-import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author Tobias Sarnowski
  */
-public interface ClusteredCollection<T> extends Collection<T>, Clustered {
+public interface ClusteredMap<K,V> extends Clustered, Map<K,V> {
 
 }

@@ -22,6 +22,7 @@ import java.util.Set;
  *
  * @author Tobias Sarnowski
  * @since 1.0
+ * @param <T> generic element type
  */
 public interface ClusteredSet<T> extends ClusteredCollection<T>, Set<T> {
 

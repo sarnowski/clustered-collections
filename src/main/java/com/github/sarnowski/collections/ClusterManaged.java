@@ -26,7 +26,7 @@ package com.github.sarnowski.collections;
  * @param <P> a serializable payload container
  * @param <S> a serializable state transfer container
  */
-interface ClusterManaged<A,P,S> {
+interface ClusterManaged<A, P, S> {
 
     /**
      * Will be triggered as soon as an update from the cluster receives.

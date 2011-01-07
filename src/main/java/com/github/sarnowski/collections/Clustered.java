@@ -25,6 +25,8 @@ public interface Clustered {
      * Registers a change listener to the implementation. The implementation has to
      * call the callback everytime it receives an update from another cluster
      * member. Local changes will not trigger the callback.
+     * 
+     * @param callback the update callback
      */
     void setUpdateCallback(ClusterUpdateCallback callback);
 

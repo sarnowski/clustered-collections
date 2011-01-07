@@ -38,13 +38,14 @@ import org.jgroups.util.Util;
  * @param <S> serializable state
  * @see ClusterManaged
  */
-final class ClusterManager<A,P,S> implements Receiver {
-    private final Log LOG = LogFactory.getLog(ClusterManager.class);
+final class ClusterManager<A, P, S> implements Receiver {
+    
+    private static final Log LOG = LogFactory.getLog(ClusterManager.class);
 
     private final Channel channel;
-    private final ClusterManaged<A,P,S> managed;
+    private final ClusterManaged<A, P, S> managed;
 
-    ClusterManager(String clusterName, Channel channel, ClusterManaged<A,P,S> managed) throws ChannelException {
+    ClusterManager(String clusterName, Channel channel, ClusterManaged<A, P, S> managed) throws ChannelException {
         this.channel = channel;
         this.managed = managed;
 
@@ -75,11 +76,13 @@ final class ClusterManager<A,P,S> implements Receiver {
     public void sendUpdate(A action, P payload) {
         if (LOG.isDebugEnabled())
             LOG.debug("sendUpdate(" + action + ", " + payload + ")");
-        final ClusterUpdate<A,P> update = new ClusterUpdate<A,P>(action, payload);
+        final ClusterUpdate<A, P> update = new ClusterUpdate<A, P>(action, payload);
         final byte[] buffer;
         try {
             buffer = Util.objectToByteBuffer(update);
+        /* CHECKSTYLE:OFF */
         } catch (Exception e) {
+        /* CHECKSTYLE:ON */
             throw new IllegalArgumentException(e);
         }
         try {
@@ -110,14 +113,17 @@ final class ClusterManager<A,P,S> implements Receiver {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void receive(Message msg) {
         if (LOG.isTraceEnabled())
             LOG.trace("receive(" + msg + ")");
 
-        final ClusterUpdate<A,P> update;
+        final ClusterUpdate<A, P> update;
         try {
             update = (ClusterUpdate) Util.objectFromByteBuffer(msg.getBuffer());
+        /* CHECKSTYLE:OFF */
         } catch (Exception e) {
+        /* CHECKSTYLE:ON */
             throw new IllegalArgumentException(e);
         }
 
@@ -130,18 +136,23 @@ final class ClusterManager<A,P,S> implements Receiver {
             LOG.trace("getState()");
         try {
             return Util.objectToByteBuffer(managed.provideClusterState());
+        /* CHECKSTYLE:OFF */
         } catch (Exception e) {
+        /* CHECKSTYLE:ON */
             throw new IllegalArgumentException(e);
         }
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void setState(byte[] state) {
         if (LOG.isTraceEnabled())
             LOG.trace("setState(...)");
         try {
-            managed.updateClusterState((S)Util.objectFromByteBuffer(state));
+            managed.updateClusterState((S) Util.objectFromByteBuffer(state));
+        /* CHECKSTYLE:OFF */
         } catch (Exception e) {
+        /* CHECKSTYLE:ON */
             throw new IllegalArgumentException(e);
         }
     }

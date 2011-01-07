@@ -23,8 +23,13 @@ import java.io.Serializable;
  * @author Tobias Sarnowski
  * @since 1.0
  * @see ClusterManager
+ * @param <A> generic action type
+ * @param <P> generic payload type
  */
-final class ClusterUpdate<A,P> implements Serializable {
+final class ClusterUpdate<A, P> implements Serializable {
+    
+    private static final long serialVersionUID = 4851107754378987870L;
+    
     private final A actionIdentifier;
     private final P payload;
 
@@ -40,4 +45,5 @@ final class ClusterUpdate<A,P> implements Serializable {
     public P getPayload() {
         return payload;
     }
+    
 }

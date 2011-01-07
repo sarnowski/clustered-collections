@@ -30,20 +30,22 @@ import java.util.List;
  *
  * @author Tobias Sarnowski
  * @since 1.0
+ * @param <T> generic element type
  */
 final class ReplicatedClusteredList<T> extends AbstractList<T> implements
         ClusteredList<T>,
-        ClusterManaged<ReplicatedClusteredList.ListActions,ReplicatedClusteredList.ListPayload<T>,List<T>> {
+        ClusterManaged<ReplicatedClusteredList.ListActions, ReplicatedClusteredList.ListPayload<T>, List<T>> {
 
-    private final Log LOG = LogFactory.getLog(ReplicatedClusteredList.class);
+    private static final Log LOG = LogFactory.getLog(ReplicatedClusteredList.class);
 
     private List<T> localList = new ArrayList<T>();
 
-    private final ClusterManager<ListActions,ReplicatedClusteredList.ListPayload<T>,List<T>> clusterManager;
-    private ClusterUpdateCallback updateCallback = null;
+    private final ClusterManager<ListActions, ReplicatedClusteredList.ListPayload<T>, List<T>> clusterManager;
+    private ClusterUpdateCallback updateCallback;
 
     public ReplicatedClusteredList(String clusterName, Channel channel) throws ChannelException {
-        clusterManager = new ClusterManager<ListActions,ReplicatedClusteredList.ListPayload<T>,List<T>>(clusterName, channel, this);
+        clusterManager = new ClusterManager<ListActions, ReplicatedClusteredList.ListPayload<T>, List<T>>(
+                clusterName, channel, this);
     }
 
     @Override
@@ -62,7 +64,7 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
             LOG.trace("handleUpdate(" + action + ", " + payload + ")");
         switch (action) {
             case SET:
-                localList.set(payload.getIndex(),payload.getElement());
+                localList.set(payload.getIndex(), payload.getElement());
                 break;
             case ADD:
                 localList.add(payload.getIndex(), payload.getElement());
@@ -73,6 +75,8 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
             case CLEAR:
                 localList.clear();
                 break;
+            default:
+                throw new UnsupportedOperationException(action.name());
         }
         if (updateCallback != null) {
             updateCallback.clusterUpdated();
@@ -140,6 +144,9 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
     }
 
     public static class ListPayload<T> implements Serializable {
+        
+        private static final long serialVersionUID = -3929643004759568273L;
+        
         private final int index;
         private final T element;
 
@@ -164,4 +171,5 @@ final class ReplicatedClusteredList<T> extends AbstractList<T> implements
                     '}';
         }
     }
+    
 }

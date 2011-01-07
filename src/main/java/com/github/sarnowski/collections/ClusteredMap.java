@@ -22,7 +22,9 @@ import java.util.Map;
  *
  * @author Tobias Sarnowski
  * @since 1.0
+ * @param <K> generic key type
+ * @param <V> generic value type
  */
-public interface ClusteredMap<K,V> extends Clustered, Map<K,V> {
+public interface ClusteredMap<K, V> extends Clustered, Map<K, V> {
 
 }

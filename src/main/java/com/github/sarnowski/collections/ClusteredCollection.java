@@ -22,6 +22,7 @@ import java.util.Collection;
  *
  * @author Tobias Sarnowski
  * @since 1.0
+ * @param <T> generic element type
  */
 public interface ClusteredCollection<T> extends Collection<T>, Clustered {
 

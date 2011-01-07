@@ -22,6 +22,7 @@ import java.util.List;
  *
  * @author Tobias Sarnowski
  * @since 1.0
+ * @param <T> generic element type
  */
 public interface ClusteredList<T> extends ClusteredCollection<T>, List<T> {
 
